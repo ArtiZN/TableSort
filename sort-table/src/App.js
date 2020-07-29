@@ -3,8 +3,9 @@ import music from './Surprise.mp3'
 import TableContent from './utils/TableContent'
 import _ from 'lodash'
 import List from './utils/List';
-import LeftArrow from './LArrow.png'
-import RightArrow from './RArrow.png'
+import LeftArrow from './utils/LeftArrow'
+import RightArrow from './utils/RightArrow'
+
 
 
 function App() {
@@ -123,13 +124,11 @@ function App() {
 
   function onSort(e, field){
     e.preventDefault()
-    console.log(pagedData)
       setData(_.orderBy(data, field, order))
      orderChange() 
   }
   function calibrate(e, direction){
     e.preventDefault()
-    console.log(start + ' ' + pagination + ' ' +data.length )
     if (direction){
       if (start+pagination<data.length)
       setStart(start+pagination)
@@ -159,9 +158,7 @@ function App() {
       <div className='screen'> 
         <div id='bigDiv'>
           <div id='tableDiv'>
-          <img src={LeftArrow} id='leftArrow' onClick={(event)=>{
-            calibrate(event, false)
-          }} alt="Oh shit I'm sorry"/>
+          <LeftArrow calibrate={calibrate}></LeftArrow>
             <div id='table'>
               <div className='row'>
                 {th.map(item=>{
@@ -175,9 +172,7 @@ function App() {
             { <TableContent data={pagedData}/>}
 
             </div>
-            <img src={RightArrow} id='rightArrow' onClick={(event)=>{
-              calibrate(event, true)
-            }}  alt="Oh shit I'm sorry"/>
+            <RightArrow calibrate={calibrate}/>
           </div>
         </div>
         

@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { set } from 'lodash'
 
 function List(props){
 
@@ -30,7 +29,8 @@ function List(props){
         e.preventDefault()
         props.setPagination(value)
         console.log(props.start)
-        props.setPagedData(props.data.slice(props.start,props.start + value))
+        if (value!==props.data.length) props.setPagedData(props.data.slice(props.start,props.start + value))
+         else props.setPagedData(props.data.slice(0, value))
         setClicked(!clicked)
     }
   
