@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import music from './Surprise.mp3' 
 import TableContent from './utils/TableContent'
 import _ from 'lodash'
+import List from './utils/List';
+import LeftArrow from './LArrow.png'
+import RightArrow from './RArrow.png'
 
 
 function App() {
@@ -17,9 +20,40 @@ function App() {
     {id: 8, name: 'Andrew', salary: 5, isMarried: false, dick: 3},
     {id: 9, name: 'Gay', salary: 10, isMarried: true, dick: 4},
     {id: 10, name: 'Van', salary: 65, isMarried: false, dick: 7},
+    {id: 11, name: 'Oleg', salary: 5000, isMarried: true, dick: 15},
+    {id: 12, name: 'Pavel', salary: 20000, isMarried: true, dick: 42},
+    {id: 13, name: 'Bill', salary: 3000000000, isMarried: true, dick: 14},
+    {id: 14, name: 'Elon', salary: 1500000000, isMarried: true, dick: 13},
+    {id: 15, name: 'Mark', salary: 980, isMarried: true, dick: 12},
+    {id: 16, name: 'Victor', salary: 0, isMarried: false, dick: 0},
+    {id: 17, name: 'Artem', salary: 3, isMarried: true, dick: 4},
+    {id: 18, name: 'Andrew', salary: 5, isMarried: false, dick: 3},
+    {id: 19, name: 'Gay', salary: 10, isMarried: true, dick: 4},
+    {id: 20, name: 'Van', salary: 65, isMarried: false, dick: 7},
+    {id: 21, name: 'Oleg', salary: 5000, isMarried: true, dick: 15},
+    {id: 22, name: 'Pavel', salary: 20000, isMarried: true, dick: 42},
+    {id: 23, name: 'Bill', salary: 3000000000, isMarried: true, dick: 14},
+    {id: 24, name: 'Elon', salary: 1500000000, isMarried: true, dick: 13},
+    {id: 25, name: 'Mark', salary: 980, isMarried: true, dick: 12},
+    {id: 26, name: 'Victor', salary: 0, isMarried: false, dick: 0},
+    {id: 27, name: 'Artem', salary: 3, isMarried: true, dick: 4},
+    {id: 28, name: 'Andrew', salary: 5, isMarried: false, dick: 3},
+    {id: 29, name: 'Gay', salary: 10, isMarried: true, dick: 4},
+    {id: 30, name: 'Van', salary: 65, isMarried: false, dick: 7},
+    {id: 31, name: 'Oleg', salary: 5000, isMarried: true, dick: 15},
+    {id: 32, name: 'Pavel', salary: 20000, isMarried: true, dick: 42},
+    {id: 33, name: 'Bill', salary: 3000000000, isMarried: true, dick: 14},
+    {id: 34, name: 'Elon', salary: 1500000000, isMarried: true, dick: 13},
+    {id: 35, name: 'Mark', salary: 980, isMarried: true, dick: 12},
+    {id: 36, name: 'Victor', salary: 0, isMarried: false, dick: 0},
+    {id: 37, name: 'Artem', salary: 3, isMarried: true, dick: 4},
+    {id: 38, name: 'Andrew', salary: 5, isMarried: false, dick: 3},
+    {id: 39, name: 'Gay', salary: 10, isMarried: true, dick: 4},
+    {id: 40, name: 'Van', salary: 65, isMarried: false, dick: 7},
   ])
 
-  const [th, setTh] = useState([{
+  const th =[
+  {
     title : 'ID',
     field: 'id'
   },
@@ -38,14 +72,17 @@ function App() {
   {
     title : 'Dick',
     field: 'dick'
-  }
-])
+  }]
 
+  
   const [order, setOrder] = useState('asc');
   const [buttonPressed, setButtonPressed] = useState(false)
   const mymusic = new Audio(music)
-  
-  
+  const [pagination, setPagination] = useState(10)
+  const [start, setStart] = useState(0)
+  const [pagedData, setPagedData] = useState(data.slice(start, start+pagination))
+
+
   useEffect(()=>{
     if (buttonPressed) {
       // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -54,6 +91,10 @@ function App() {
     else mymusic.pause()  
     // eslint-disable-next-line react-hooks/exhaustive-deps
   },[buttonPressed])
+
+  useEffect(()=>{
+    setPagedData(data.slice(0, pagination))
+  },[data])
 
   const Styles = {
     dangerousButton: {
@@ -82,8 +123,27 @@ function App() {
 
   function onSort(e, field){
     e.preventDefault()
-      setData(_.orderBy(data, field, order)); orderChange() 
+    console.log(pagedData)
+      setData(_.orderBy(data, field, order))
+     orderChange() 
   }
+  function calibrate(e, direction){
+    e.preventDefault()
+    console.log(start + ' ' + pagination + ' ' +data.length )
+    if (direction){
+      if (start+pagination<data.length)
+      setStart(start+pagination)
+      else setStart(data.length-pagination)
+    }
+
+    else {
+      if (!(start<pagination)) 
+      setStart(start - pagination)
+      else setStart(0)
+    }
+    setPagedData(data.slice(start, start+pagination))
+  }
+
  
   function display(){
     if (buttonPressed) return(
@@ -97,23 +157,39 @@ function App() {
     )
     else return(
       <div className='screen'> 
-        <div id='tableDiv'>
-          <div id='table'>
-            <div className='row'>
-              {th.map(item=>{
-                return <div 
-                id='column' 
-                onClick={(event=>{
-                  onSort(event, item.field)
-                })}>{item.title}</div>
-              })}
+        <div id='bigDiv'>
+          <div id='tableDiv'>
+          <img src={LeftArrow} id='leftArrow' onClick={(event)=>{
+            calibrate(event, false)
+          }} alt="Oh shit I'm sorry"/>
+            <div id='table'>
+              <div className='row'>
+                {th.map(item=>{
+                  return <div 
+                  id='column' 
+                  onClick={(event=>{
+                    onSort(event, item.field)
+                  })}>{item.title}</div>
+                })}
+              </div>
+            { <TableContent data={pagedData}/>}
+
             </div>
-           <TableContent data={data}/>
+            <img src={RightArrow} id='rightArrow' onClick={(event)=>{
+              calibrate(event, true)
+            }}  alt="Oh shit I'm sorry"/>
           </div>
-          
         </div>
+        
+        
         <div  id='button'> {/*that button */}
           <button onClick={onClicked} style={Styles.dangerousButton}> Don't Click </button>
+          <List setPagination={setPagination}
+           data={data} setPagedData={setPagedData}
+            pagedData={pagedData}
+              start = {start}
+              pagination={pagination}
+            />
         </div>
       </div>
     )
@@ -121,6 +197,7 @@ function App() {
 
   return (
     <>
+    
     {display()}
     </>
 
