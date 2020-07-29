@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import music from './Surprise.mp3' 
 import TableContent from './utils/TableContent'
+import _ from 'lodash'
 
 
 function App() {
@@ -18,8 +19,32 @@ function App() {
     {id: 10, name: 'Van', salary: 65, isMarried: false, dick: 7},
   ])
 
+  const [th, setTh] = useState([{
+    title : 'ID',
+    field: 'id'
+  },
+  {
+    title : 'Name',
+    field: 'name'
+  },
+  {
+    title : 'Salary',
+    field: 'salary'
+  },
+  {
+    title : 'Married?',
+    field: 'isMarried'
+  },
+  {
+    title : 'Dick',
+    field: 'dick'
+  }
+])
+
+  const [order, setOrder] = useState('asc');
   const [buttonPressed, setButtonPressed] = useState(false)
   const mymusic = new Audio(music)
+  
   
   useEffect(()=>{
     if (buttonPressed) {
@@ -50,6 +75,16 @@ function App() {
     setButtonPressed(!buttonPressed)
   }
 
+  function orderChange(){
+    if (order==='asc') setOrder('desc')
+    else setOrder('asc')
+  }
+
+  function onSort(e, field){
+    e.preventDefault()
+      setData(_.orderBy(data, field, order)); orderChange() 
+  }
+ 
   function display(){
     if (buttonPressed) return(
       <>
@@ -65,21 +100,13 @@ function App() {
         <div id='tableDiv'>
           <div id='table'>
             <div className='row'>
-              <div id='column'>
-                ID
-              </div>
-              <div id='column'>
-                Name
-              </div>
-              <div id='column'>
-                Salary
-              </div>
-              <div id='column'>
-                Married?
-              </div>
-              <div id='column'>
-                Dick
-              </div>
+              {th.map(item=>{
+                return <div 
+                id='column' 
+                onClick={(event=>{
+                  onSort(event, item.field)
+                })}>{item.title}</div>
+              })}
             </div>
            <TableContent data={data}/>
           </div>

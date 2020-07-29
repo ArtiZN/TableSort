@@ -2,7 +2,7 @@ import React from 'react'
 
  export default props => (
      props.data.map(item =>{
-        return <div className='row'>
+        return <div className='row' key={item.id}>
             <div id='column'>
                 {item.id}
             </div>
