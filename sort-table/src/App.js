@@ -11,7 +11,7 @@ import RightArrow from './utils/RightArrow'
 function App() {
 
   const [data, setData] = useState([
-    {id: 1, name: 'Oleg', salary: 5000, isMarried: true, dick: 15},
+    {id: 1, name: 'Vova', salary: 10000000, isMarried: false, dick: 156},
     {id: 2, name: 'Pavel', salary: 20000, isMarried: true, dick: 42},
     {id: 3, name: 'Bill', salary: 3000000000, isMarried: true, dick: 14},
     {id: 4, name: 'Elon', salary: 1500000000, isMarried: true, dick: 13},
@@ -169,22 +169,27 @@ function App() {
                   })}>{item.title}</div>
                 })}
               </div>
-            { <TableContent data={pagedData}/>}
-
+            { <TableContent data={pagedData}/>}           
             </div>
             <RightArrow calibrate={calibrate}/>
           </div>
+          <div style={{textAlign:'right'}}>
+            <List 
+            setPagination={setPagination}
+            data={data} setPagedData={setPagedData}
+              pagedData={pagedData}
+                start = {start}
+                pagination={pagination}
+              />
+          </div>
+          
         </div>
+        
         
         
         <div  id='button'> {/*that button */}
           <button onClick={onClicked} style={Styles.dangerousButton}> Don't Click </button>
-          <List setPagination={setPagination}
-           data={data} setPagedData={setPagedData}
-            pagedData={pagedData}
-              start = {start}
-              pagination={pagination}
-            />
+          
         </div>
       </div>
     )

@@ -9,7 +9,7 @@ function List(props){
     const Styles = {
         div: {
             backgroundColor: '#fffff0',
-            width: '35%',
+            width: '100px',
             borderRadius: '10px',
             textAlign: 'center',
             ...visibility,
@@ -17,7 +17,7 @@ function List(props){
         Menu: {
             backgroundColor: '#fffff0',
             borderBottom: '1px grey solid',
-            width: '35%',
+            width: '100px',
             borderRadius: '10px',
             textAlign: 'center'
         }   
