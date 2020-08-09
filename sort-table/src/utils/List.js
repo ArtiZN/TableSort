@@ -35,7 +35,7 @@ function List(props){
     }
   
 
-    return  <div style={{marginTop:'750px'}}>
+    return  <div>
         <div style={Styles.Menu} onClick={divClicked}>Quantity</div>
         <div style={Styles.div}>
             <div style={{borderBottom: '1px grey solid',}} onClick={(event)=>{

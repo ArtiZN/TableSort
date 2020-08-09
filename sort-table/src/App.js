@@ -86,7 +86,6 @@ function App() {
 
   useEffect(()=>{
     if (buttonPressed) {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
       mymusic.play()
     }
     else mymusic.pause()  
@@ -95,7 +94,13 @@ function App() {
 
   useEffect(()=>{
     setPagedData(data.slice(0, pagination))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[data])
+
+  useEffect(()=>{
+    setPagedData(data.slice(start, start+pagination))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [start])
 
   const Styles = {
     dangerousButton: {
@@ -144,17 +149,10 @@ function App() {
   }
 
  
-  function display(){
-    if (buttonPressed) return(
-      <>
-      <div className='trap'>
-        <img src="https://media1.tenor.com/images/ffc86c2754e1bc3c8c2ac8ff572b0766/tenor.gif?itemid=16690874" className='gif' alt="Oh shit I'm sorry"/>
-        
-      </div>
-      <button onClick={onClicked} style={Styles.dangerousButton}> Stop this </button>
-      </>  
-    )
-    else return(
+
+  return (
+    <>
+    {!buttonPressed && 
       <div className='screen'> 
         <div id='bigDiv'>
           <div id='tableDiv'>
@@ -169,39 +167,32 @@ function App() {
                   })}>{item.title}</div>
                 })}
               </div>
-            { <TableContent data={pagedData}/>}           
-            </div>
+              <TableContent data={pagedData}/>
+              <div style={{margin:'30px 350px'}}>
+                <List 
+              setPagination={setPagination}
+              data={data} setPagedData={setPagedData}
+                pagedData={pagedData}
+                  start = {start}
+                  pagination={pagination}
+                />
+              </div>                     
+            </div>    
             <RightArrow calibrate={calibrate}/>
           </div>
-          <div style={{textAlign:'right'}}>
-            <List 
-            setPagination={setPagination}
-            data={data} setPagedData={setPagedData}
-              pagedData={pagedData}
-                start = {start}
-                pagination={pagination}
-              />
-          </div>
-          
-        </div>
-        
-        
-        
+         </div>  
         <div  id='button'> {/*that button */}
-          <button onClick={onClicked} style={Styles.dangerousButton}> Don't Click </button>
-          
+          <button onClick={onClicked} style={Styles.dangerousButton}> Don't Click </button>       
         </div>
+      </div>}
+
+      {buttonPressed && <>
+      <div className='trap'>
+        <img src="https://media1.tenor.com/images/ffc86c2754e1bc3c8c2ac8ff572b0766/tenor.gif?itemid=16690874" className='gif' alt="Oh shit I'm sorry"/>    
       </div>
-    )
-  }
-
-  return (
-    <>
-    
-    {display()}
-    </>
-
-   
+      <button onClick={onClicked} style={Styles.dangerousButton}> Stop this </button>
+      </>}   
+    </> 
     );
 }
 
