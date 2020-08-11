@@ -17,7 +17,7 @@ import React from 'react'
                 <div>Yes</div> : <div>No</div>}
             </div>
             <div id='column'>
-                {item.dick}
+                {item.iq}
             </div>
         </div>
      })
