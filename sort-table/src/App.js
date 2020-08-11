@@ -74,7 +74,6 @@ function App() {
     title : 'iq',
     field: 'iq'
   }]
-//comment
   
   const [order, setOrder] = useState('asc');
   const [buttonPressed, setButtonPressed] = useState(false)
