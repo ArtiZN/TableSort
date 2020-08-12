@@ -33,35 +33,32 @@ code {
 }
 
 #leftArrow {
- text-align: right;
+ 
   width: 100px;
   height: 100px;
-  margin: auto;
+  /* margin: auto; */
   
 }
 
 #rightArrow{
-  text-align: left;
+  
   width: 100px;
   height: 100px;
-  margin: auto;
+  /* margin: auto; */
   
 }
 
 #bigDiv {
   height: 100%;
   width: 90%;
+ 
 }
 
 #tableDiv {
   text-align: center;
   display: flex;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%); 
- 
+
+  
 }
 
 #table {
@@ -75,7 +72,8 @@ code {
 
 #column {
   width: 25%;
-  border: 1px solid grey
+  border: 1px solid grey;
+  display: block;
 }
 
 #button {

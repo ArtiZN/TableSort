@@ -113,9 +113,11 @@ function App() {
       height: '20%',
     }
   }
+
   function stopAudio() {
     mymusic.pause()  
 }
+
   function onClicked(){
     if (buttonPressed) stopAudio()
     setButtonPressed(!buttonPressed)
@@ -131,6 +133,7 @@ function App() {
       setData(_.orderBy(data, field, order))
      orderChange() 
   }
+
   function calibrate(e, direction){
     e.preventDefault()
     if (direction){
@@ -152,24 +155,28 @@ function App() {
     {!buttonPressed && 
       <div className='screen'> 
         <div id='bigDiv'>
+        
           <div id='tableDiv'>
-          <LeftArrow calibrate={calibrate}></LeftArrow>
+           <LeftArrow calibrate={calibrate}/>
             <div id='table'>
               <div className='row'>
                 {th.map(item=>{
                   return <div 
-                  id='column' 
-                  onClick={(event=>{
-                    onSort(event, item.field)
-                  })}>{item.title}</div>
+                    id='column' 
+                    onClick={(event=>{
+                      onSort(event, item.field)
+                    })}>
+                    {item.title}
+                  </div>
                 })}
               </div>
               <TableContent data={pagedData}/>
+             
               <div style={{margin:'30px 350px'}}>
-                <List 
-              setPagination={setPagination}
-              data={data} setPagedData={setPagedData}
-                pagedData={pagedData}
+              <List 
+                  setPagination={setPagination}
+                  data={data} setPagedData={setPagedData}
+                  pagedData={pagedData}
                   start = {start}
                   pagination={pagination}
                 />
@@ -177,6 +184,7 @@ function App() {
             </div>    
             <RightArrow calibrate={calibrate}/>
           </div>
+        
          </div>  
         <div  id='button'> {/*that button */}
           <button onClick={onClicked} style={Styles.dangerousButton}> Don't Click </button>       
