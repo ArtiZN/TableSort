@@ -7,8 +7,8 @@ const arrayGets = [
     "Я тебя люблю",
     "Расскажи шутку",
     'Предсказание на день',
-    "Факт обо мне",
-    "Фраза для подката",
+    // "Факт обо мне",
+    // "Фраза для подката",
 ]
 
 const arrayPosts = [
@@ -81,13 +81,13 @@ function me (element) {
 
 bot.on('message',  msg => {
     r_message=msg.text.split('?').join('').toLowerCase().split(' ')
-    console.log(r_message)
+    console.log(msg.from.username + ": " + msg.text)
     var chatId = msg.chat.id
     
     arrayGets.map(item=>{
         if (item.toLowerCase()===msg.text.toLowerCase()){
             switch(arrayGets.indexOf(item)){
-                //этот кусок кода нужно переписать
+                //этот кусок кода нужно переписать!
                 case 4: bot.sendMessage(chatId, arrayPosts[4][Math.floor(Math.random()*arrayPosts[4].length)]); break;
                 case 5: bot.sendMessage(chatId, arrayPosts[5][Math.floor(Math.random()*arrayPosts[5].length)]); break;
                 case 6: bot.sendMessage(chatId, arrayPosts[6][Math.floor(Math.random()*arrayPosts[6].length)]); break;
