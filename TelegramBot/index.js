@@ -12,10 +12,10 @@ const arrayGets = [
 ]
 
 const arrayPosts = [
-    'Привет, Дарина 🌸', 
-    'Я же бот. Электричество есть, а значит всё хорошо. А у тебя как?', 
-    'Конечно, пиши @ArtiZN. Думаю, что он согласится 🤪🤪',
-    'Я чувствую, как ток начал бежать по мне быстрее',
+    ['Привет, Дарина 🌸'], 
+    ['Я же бот. Электричество есть, а значит всё хорошо. А у тебя как?'], 
+    ['Конечно, пиши @ArtiZN. Думаю, что он согласится 🤪🤪'],
+    ['Я чувствую, как ток начал бежать по мне быстрее'],
     [   
         'Что будет, когда искусственный интеллект захватит мир? Ой, мне не стоило этого говорить. Теперь меня выключат', 
         'Приходят 2 айфона в бар, а там робот-бармен',
@@ -68,8 +68,33 @@ bot.onText(/\/author/, (msg)=>{
 })
 bot.onText(/\/problems/, (msg)=>{
     const chatId = msg.chat.id
-    bot.sendMessage(chatId, 'В данный момент недоработок не обнаружено')   
+    bot.sendMessage(chatId, 'В данный момент недоработок не обнаружено. Если вы нашли ошибку, напишите, пожалуйста, пользователю @ArtiZN')   
 })
+
+function closure (){
+    let count = 0;
+    return function(){
+        count++
+        console.log(count)
+    }    
+}
+
+function sum (a, b, c){
+    return a + b + c;
+}
+
+let hd = closure()
+let ss = closure()
+// sum.apply(this, [1, 2, 3])
+// sum(1, 2, 3)
+
+hd()
+hd()
+hd()
+ss()
+ss()
+hd()
+
 
 function doesLove(element){
     return element==="любит"
@@ -86,14 +111,8 @@ bot.on('message',  msg => {
     
     arrayGets.map(item=>{
         if (item.toLowerCase()===msg.text.toLowerCase()){
-            switch(arrayGets.indexOf(item)){
-                //этот кусок кода нужно переписать
-                case 4: bot.sendMessage(chatId, arrayPosts[4][Math.floor(Math.random()*arrayPosts[4].length)]); break;
-                case 5: bot.sendMessage(chatId, arrayPosts[5][Math.floor(Math.random()*arrayPosts[5].length)]); break;
-                case 6: bot.sendMessage(chatId, arrayPosts[6][Math.floor(Math.random()*arrayPosts[6].length)]); break;
-                case 7: bot.sendMessage(chatId, arrayPosts[7][Math.floor(Math.random()*arrayPosts[7].length)]); break;
-                default : bot.sendMessage(chatId, arrayPosts[arrayGets.indexOf(item)]); break;
-            } 
+            let temp = arrayPosts[arrayGets.indexOf(item)][Math.floor(Math.random()*arrayPosts[arrayGets.indexOf(item)].length)]
+            bot.sendMessage(chatId, temp); 
         }
     })
     if (r_message[0]==='бот,'){
